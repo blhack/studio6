@@ -9,12 +9,15 @@ void setup() {
   Serial.begin(9600);
 }
 
-void lightsOn() {
+void lightsOn(int intensity) {
   uint32_t c = Wheel(random(0,255));
-  strip.setPixelColor(0, c);
-  strip.setPixelColor(1, c);
-  strip.setPixelColor(2, c);
-  strip.setPixelColor(3, c);
+
+  int i = 255 - intensity;
+  
+  strip.setPixelColor(0, i, i, i);
+  strip.setPixelColor(1, i, i, i);
+  strip.setPixelColor(2, i, i, i);
+  strip.setPixelColor(3, i, i, i);
   strip.show();
 }
 
@@ -28,8 +31,8 @@ void lightsOff() {
 
 void loop() {
   int sensVal = analogRead(A0);
-  if (sensVal < 100) {
-    lightsOn();
+  if (sensVal < 255) {
+    lightsOn(sensVal);
   } else {
     lightsOff();
   }
